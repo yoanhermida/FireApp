@@ -1,20 +1,23 @@
-from datetime import datetime
 import sqlite3
 
 
 class DatabaseClient:
 
-    conn = sqlite3.connect("fireapp.db")
+    def __init__(self, db):
+        self.db = db
 
-    cursor = conn.cursor()
+    def connect(self):
+        conn = sqlite3.connect(self.db)
+        cursor = conn.cursor()
+        return cursor
 
 
 class MyData:
 
-    # insert record
-    net_worth_document = {
-        'age': 35,
-        'date': datetime.now(),
-        'projected': 1.00,
-        'actual': 2.00
-    }
+    def __init__(self, client):
+        self.client = client
+
+    def get_record(self):
+        sql = "SELECT * FROM networth"
+        self.client.connect().execute(sql)
+        return self.client.connect().fetchall()
