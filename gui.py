@@ -1,10 +1,13 @@
 from tkinter import Tk, Label, Button, LEFT, Entry, END
 
-from data import MyData, DatabaseClient
+from data import DatabaseClient
 
 
 class UserInterface(object):
-    
+
+    def __init__(self, ui):
+        self.ui = ui
+
     client = DatabaseClient("fireapp.db")
 
     # creates root window
@@ -20,7 +23,7 @@ class UserInterface(object):
         self.root.destroy()
 
     def display_records(self):
-        r_set = MyData(self.client).get_record()
+        r_set = self.client.get_record()
         i = 0
         for r in r_set:
             for j in range(len(r)):
