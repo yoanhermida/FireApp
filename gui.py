@@ -3,21 +3,30 @@ from tkinter import Tk, Label, Button, LEFT, Entry, END
 from data import DatabaseClient
 
 
-class UserInterface(object):
-
-    def __init__(self, ui):
-        self.ui = ui
+class UserInterface:
 
     client = DatabaseClient("fireapp.db")
 
-    # creates root window
-    root = Tk(className="fireApp")
-    root.geometry("500x500")
-    root.title("FIRE App")
+    def __init__(self):
 
-    # window components
-    welcome = Label(root, text='Net Worth\n')
-    welcome.pack()
+        # creates root window
+        self.root = Tk(className="fireApp")
+        self.root.geometry("500x500")
+        self.root.title("FIRE App")
+
+        # window components
+        welcome = Label(self.root, text='Net Worth\n')
+        welcome.pack()
+
+        # buttons
+        button_get_doc = Button(self.root, text="Get Net Worth", command=self.display_records)
+        button_get_doc.pack(side=LEFT)
+
+        button_exit = Button(self.root, text="Exit", command=self.exit_app)
+        button_exit.pack(side=LEFT)
+
+        # keep gui running
+        self.root.mainloop()
 
     def exit_app(self):
         self.root.destroy()
@@ -31,13 +40,3 @@ class UserInterface(object):
                 e.grid(row=i, column=j)
                 e.insert(END, r[j])
             i += 1
-
-    # buttons
-    button_get_doc = Button(root, text="Get Net Worth", command=display_records)
-    button_get_doc.pack(side=LEFT)
-
-    button_exit = Button(root, text="Exit", command=exit_app)
-    button_exit.pack(side=LEFT)
-
-    # keep gui running
-    root.mainloop()
