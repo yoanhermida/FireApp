@@ -8,10 +8,10 @@ class DatabaseClient:
 
     def connect(self):
         conn = sqlite3.connect(self.db)
-        cursor = conn.cursor()
-        return cursor
+        curs = conn.cursor()
+        return curs
 
     def get_record(self):
         sql = "SELECT * FROM networth"
-        self.connect().execute(sql)
-        return self.connect().fetchall()
+        q = self.connect().execute(sql)
+        return q.fetchall()

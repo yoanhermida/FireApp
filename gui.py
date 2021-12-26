@@ -1,4 +1,4 @@
-from tkinter import Tk, Label, Button, LEFT, Entry, END
+from tkinter import Tk, Label, Button, LEFT, Entry, END, ttk
 
 from data import DatabaseClient
 
@@ -10,20 +10,18 @@ class UserInterface:
     def __init__(self):
 
         # creates root window
-        self.root = Tk(className="fireApp")
+        self.root = Tk(className="FireApp")
         self.root.geometry("500x500")
-        self.root.title("FIRE App")
+        self.root.title("FireApp")
 
         # window components
-        welcome = Label(self.root, text='Net Worth\n')
-        welcome.pack()
+        main = ttk.Frame(self.root, padding=10)
+        main.grid()
+        # ttk.Label(main, text="FireApp").grid(column=0, row=0)
 
         # buttons
-        button_get_doc = Button(self.root, text="Get Net Worth", command=self.display_records)
-        button_get_doc.pack(side=LEFT)
-
-        button_exit = Button(self.root, text="Exit", command=self.exit_app)
-        button_exit.pack(side=LEFT)
+        ttk.Button(main, text="Net Worth", command=self.display_records).grid(column=0, row=1)
+        ttk.Button(main, text="Exit", command=self.exit_app).grid(column=1, row=1)
 
         # keep gui running
         self.root.mainloop()
@@ -33,7 +31,7 @@ class UserInterface:
 
     def display_records(self):
         r_set = self.client.get_record()
-        i = 0
+        i = 1
         for r in r_set:
             for j in range(len(r)):
                 e = Entry(self.root, width=10, fg='blue')
